@@ -20,8 +20,9 @@ logging.basicConfig(
 
 def make_external_request():
     try:
-        response = requests.get(os.environ.get('URL'))
-        logging.info(f'Request made to external site. Status code: {response.status_code}')
+        for url in os.environ.get('URLS').split(','):
+            response = requests.get(url)
+            logging.info(f'Request made to {url}. Status code: {response.status_code}')
     except Exception as e:
         logging.error(f'Error while making request: {e}')
 
